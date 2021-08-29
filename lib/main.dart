@@ -12,16 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => MyHomePage(title: "Flutter Demo Home Page"),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/next': (context) => NextPage(),
-      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
     );
   }
 }
@@ -36,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String text = "次へ";
 
   void _incrementCounter() {
     setState(() {
@@ -55,9 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Container(
           child: RaisedButton(
-            child: Text("次へ"),
-            onPressed: () {
-              Navigator.pushNamed(context, '/next');
+            child: Text(text),
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NextPage(title: "Next Page")),
+              );
+              setState(()  {
+                text = result;
+              });
             },
           ),
         ),
