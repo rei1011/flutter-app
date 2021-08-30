@@ -13,19 +13,21 @@ class NextPage extends StatelessWidget {
       body: Container(
         color: Colors.yellow,
         height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(title),
-            Center(
-              child: RaisedButton(
-                child: Text('戻る'),
-                onPressed: () {
-                  Navigator.pop(context, "return value");
-                },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(title),
+              Center(
+                child: RaisedButton(
+                  child: Text('戻る'),
+                  onPressed: () {
+                    Navigator.pop(context, "return value");
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

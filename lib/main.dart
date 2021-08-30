@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'next_page.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -32,6 +30,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String text = "次へ";
+  final myFocusNode = FocusNode();
+  final myController = TextEditingController();
+  String name = '';
 
   void _incrementCounter() {
     setState(() {
@@ -43,33 +44,38 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          Icon(Icons.add),
-        ],
+        title: Text('title'),
       ),
-      body: Center(
-        child: Container(
-          child: RaisedButton(
-            child: Text(text),
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NextPage(title: "Next Page")),
-              );
-              setState(()  {
-                text = result;
-              });
-            },
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  hintText: '田中太郎',
+                ),
+                onChanged: (value) {},
+              ),
+              TextField(
+                controller: myController,
+                focusNode: myFocusNode,
+              ),
+              RaisedButton(
+                child: Text(this.name),
+                onPressed: () {
+                  setState(() {
+                    this.name = myController.text;
+                  });
+                },
+              )
+            ],
+          )),
     );
   }
 }
