@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/main_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,54 +30,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String text = "次へ";
-  final myFocusNode = FocusNode();
-  final myController = TextEditingController();
-  String name = '';
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final String value = "title";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('title'),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: ChangeNotifierProvider<MainModel>(
+        create: (_) => MainModel(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('test'),
+          ),
+          body: Consumer<MainModel>(builder: (context, model, child) {
+            return Center(
+              child: Column(
+                children: [
+                  Text(
+                    model.name,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  RaisedButton(
+                    child: Text('ボタン'),
+                    onPressed: () {
+                      model.changeName();
+                    },
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
       ),
-      body: Container(
-          width: double.infinity,
-          child: Column(
-            children: [
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  hintText: '田中太郎',
-                ),
-                onChanged: (value) {},
-              ),
-              TextField(
-                controller: myController,
-                focusNode: myFocusNode,
-              ),
-              RaisedButton(
-                child: Text(this.name),
-                onPressed: () {
-                  setState(() {
-                    this.name = myController.text;
-                  });
-                },
-              )
-            ],
-          )),
     );
   }
 }
