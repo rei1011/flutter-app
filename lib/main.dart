@@ -1,6 +1,8 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
+import 'cart.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -30,7 +32,8 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Startup Name Generator'),
+        // title: const Text('Startup Name Generator'),
+        title: const Text('Shopping List'),
         actions: [
           IconButton(
             onPressed: _pushSaved,
@@ -38,7 +41,16 @@ class _RandomWordsState extends State<RandomWords> {
           )
         ],
       ),
-      body: _buildSuggestions(),
+      // body: _buildSuggestions(),
+      body: Center(
+        child: ShoppingList(
+          products: [
+            Product(name: 'Eggs'),
+            Product(name: 'Flour'),
+            Product(name: 'Chocolate chips'),
+          ],
+        ),
+      ),
     );
   }
 
