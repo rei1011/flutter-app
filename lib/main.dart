@@ -1,9 +1,17 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/card.dart';
+// import 'package:flutter_todo_app/row_column_layout.dart';
+// import 'package:flutter_todo_app/stack.dart';
+// import 'package:flutter/rendering.dart';
 
-import 'cart.dart';
+import 'base_layout.dart';
+// import 'cart.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // debugPaintSizeEnabled = true;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -33,7 +41,7 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         // title: const Text('Startup Name Generator'),
-        title: const Text('Shopping List'),
+        title: const Text('Campground'),
         actions: [
           IconButton(
             onPressed: _pushSaved,
@@ -42,14 +50,21 @@ class _RandomWordsState extends State<RandomWords> {
         ],
       ),
       // body: _buildSuggestions(),
-      body: Center(
-        child: ShoppingList(
-          products: [
-            Product(name: 'Eggs'),
-            Product(name: 'Flour'),
-            Product(name: 'Chocolate chips'),
-          ],
-        ),
+      // body: Center(
+      //   child: ShoppingList(
+      //     products: [
+      //       Product(name: 'Eggs'),
+      //       Product(name: 'Flour'),
+      //       Product(name: 'Chocolate chips'),
+      //     ],
+      //   ),
+      // ),
+      body: Column(
+        children: [
+          titleSection,
+          buttonSection(Colors.blue),
+          textSection,
+        ],
       ),
     );
   }
