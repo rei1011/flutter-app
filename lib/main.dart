@@ -1,11 +1,12 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/card.dart';
+// import 'package:flutter_todo_app/card.dart';
 // import 'package:flutter_todo_app/row_column_layout.dart';
 // import 'package:flutter_todo_app/stack.dart';
 // import 'package:flutter/rendering.dart';
 
 import 'base_layout.dart';
+import 'navigation.dart';
 // import 'cart.dart';
 
 void main() {
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: RandomWords(),
+      // home: RandomWords(),
+      home: MainScreen(),
     );
   }
 }
