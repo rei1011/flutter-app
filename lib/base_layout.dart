@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 final titleSection = Container(
   padding: const EdgeInsets.all(32),
@@ -87,7 +89,9 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   bool _isFavorited = true;
   int _favoriteCount = 41;
 
-  void _toggleFavorite() {
+  void _toggleFavorite() async {
+    final text = await loadAsset();
+    debugPrint(text);
     setState(() {
       if (_isFavorited) {
         _favoriteCount -= 1;
@@ -125,4 +129,8 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
       ],
     );
   }
+}
+
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/text/text.json');
 }
