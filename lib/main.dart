@@ -23,7 +23,30 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       // home: RandomWords(),
-      home: MainScreen(),
+      // home: FirstRoute(),
+      initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const NamedFirstScreen(),
+      //   '/second': (context) => const NamedSecondScreen()
+      // },
+      routes: {
+        '/': (context) => const NamedFirstScreen(),
+        ExtractArgumentsScreen.routeName: (context) =>
+            const ExtractArgumentsScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == PassArgumentsScreen.routeName) {
+          final args = settings.arguments as ScreenArgs;
+          return MaterialPageRoute(
+            builder: (context) {
+              return PassArgumentsScreen(
+                  title: args.title, message: args.message);
+            },
+          );
+        }
+        assert(false, 'Named to implement ${settings.name}');
+        return null;
+      },
     );
   }
 }
