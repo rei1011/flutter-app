@@ -1,52 +1,58 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_todo_app/card.dart';
-// import 'package:flutter_todo_app/row_column_layout.dart';
-// import 'package:flutter_todo_app/stack.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'base_layout.dart';
 import 'navigation.dart';
-// import 'cart.dart';
+
+final helloWorldProvider = Provider((_) => 'Hello world');
 
 void main() {
   // debugPaintSizeEnabled = true;
-  runApp(MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String value = ref.watch(helloWorldProvider);
+
     return MaterialApp(
-      title: 'Startup Name Generator',
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      // home: RandomWords(),
-      // home: FirstRoute(),
-      initialRoute: '/',
+      // title: 'Startup Name Generator',
+      // theme: ThemeData(
+      //   primaryColor: Colors.white,
+      // ),
+      // initialRoute: '/',
       // routes: {
       //   '/': (context) => const NamedFirstScreen(),
-      //   '/second': (context) => const NamedSecondScreen()
+      //   ExtractArgumentsScreen.routeName: (context) =>
+      //       const ExtractArgumentsScreen(),
       // },
-      routes: {
-        '/': (context) => const NamedFirstScreen(),
-        ExtractArgumentsScreen.routeName: (context) =>
-            const ExtractArgumentsScreen(),
-      },
-      onGenerateRoute: (settings) {
-        if (settings.name == PassArgumentsScreen.routeName) {
-          final args = settings.arguments as ScreenArgs;
-          return MaterialPageRoute(
-            builder: (context) {
-              return PassArgumentsScreen(
-                  title: args.title, message: args.message);
-            },
-          );
-        }
-        assert(false, 'Named to implement ${settings.name}');
-        return null;
-      },
+      // onGenerateRoute: (settings) {
+      //   if (settings.name == PassArgumentsScreen.routeName) {
+      //     final args = settings.arguments as ScreenArgs;
+      //     return MaterialPageRoute(
+      //       builder: (context) {
+      //         return PassArgumentsScreen(
+      //             title: args.title, message: args.message);
+      //       },
+      //     );
+      //   }
+      //   assert(false, 'Named to implement ${settings.name}');
+      //   return null;
+      // },
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Example'),
+        ),
+        body: Center(
+          child: Text(value),
+        ),
+      ),
     );
   }
 }
