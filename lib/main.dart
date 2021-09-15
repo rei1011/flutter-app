@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'base_layout.dart';
 import 'navigation.dart';
 
-final helloWorldProvider = Provider((_) => 'Hello world');
+final counterProvider = StateProvider((ref) => 0);
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -16,11 +16,9 @@ void main() {
   );
 }
 
-class MyApp extends HookConsumerWidget {
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(helloWorldProvider);
-
+  Widget build(BuildContext context) {
     return MaterialApp(
       // title: 'Startup Name Generator',
       // theme: ThemeData(
@@ -45,14 +43,13 @@ class MyApp extends HookConsumerWidget {
       //   assert(false, 'Named to implement ${settings.name}');
       //   return null;
       // },
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Example'),
-        ),
-        body: Center(
-          child: Text(value),
-        ),
-      ),
+      home: Consumer(builder: (context, ref, _) {
+        final counter = ref.watch(counterProvider);
+        return RaisedButton(
+          onPressed: () => counter.state++,
+          child: Text('${counter.state}'),
+        );
+      }),
     );
   }
 }
